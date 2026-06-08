@@ -65,6 +65,17 @@ void loadResourcesResourceManager( void ) {
         1
     );
 
+    rm.texturaHP = carregarTexturaAlterandoCores(
+        "resources/imagens/hud/HP.png",
+        (Color[]) {
+            { 0, 102, 153, 255 },
+        },
+        (Color[]) {
+            BLANK,
+        },
+        1
+    );
+
     rm.texturaFundo = carregarTexturaAlterandoCores(
         "resources/imagens/fundo/montanhas.png",
         (Color[]) {
@@ -95,6 +106,7 @@ void loadResourcesResourceManager( void ) {
     SetTextureFilter( rm.texturaFundo, TEXTURE_FILTER_POINT );
     SetTextureFilter( rm.texturaCeu, TEXTURE_FILTER_POINT );
     SetTextureFilter( rm.texturaHud, TEXTURE_FILTER_POINT );
+    SetTextureFilter( rm.texturaHP, TEXTURE_FILTER_POINT );
     SetTextureFilter( rm.texturaJanela1, TEXTURE_FILTER_POINT );
     SetTextureFilter( rm.texturaJanela, TEXTURE_FILTER_POINT );
 
@@ -130,6 +142,7 @@ void unloadResourcesResourceManager( void ) {
     UnloadTexture( rm.texturaFundo );
     UnloadTexture( rm.texturaCeu );
     UnloadTexture( rm.texturaHud );
+    UnloadTexture( rm.texturaHP );
     UnloadTexture( rm.texturaJanela1 );
     UnloadTexture( rm.texturaJanela );
     UnloadSound( rm.somColeta );

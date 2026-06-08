@@ -82,8 +82,6 @@ void updateGameWorld( GameWorld *gw, float delta ) {
     atualizarJogador( j, gw, delta );
     atualizarCamera( gw );
 
-    printf("HP Jogador: %d\n", gw->jogador->quantidadeHP);
-
     verificarJogadorMorto( gw );
 
 }
@@ -124,31 +122,31 @@ static void desenharHud( GameWorld *gw ) {
     
     // Desenhando os Valores Fixos //
 
-    DrawTextureRec( rm.texturaHud, (Rectangle){ 2, 36, 79, 99 }, (Vector2){ 10, 10 }, WHITE ); //Hud Superior
+    // DrawTextureRec( rm.texturaHud, (Rectangle){ 2, 36, 79, 99 }, (Vector2){ 10, 10 }, WHITE ); //Hud Superior
     DrawTextureRec( rm.texturaHud, (Rectangle){ 2, 2, 95, 31 }, (Vector2){ 10, 410 }, WHITE ); //Hud Inferior
 
     // Desenhando os Valores Variáveis //
 
-    int esquerda = -1;
-    int direita = 1;
+    // int esquerda = -1;
+    // int direita = 1;
 
-    // Score //
-    const char *textoScore = TextFormat("%d", gw->jogador->scoreTotal);
-    Vector2 posicaoScore = (Vector2){ 200, 10 };
-    desenharNumGrande( textoScore, posicaoScore, esquerda );
+    // // Score //
+    // const char *textoScore = TextFormat("%d", gw->jogador->scoreTotal);
+    // Vector2 posicaoScore = (Vector2){ 200, 10 };
+    // desenharNumGrande( textoScore, posicaoScore, esquerda );
 
-    // Tempo //
-    int minutos = (int)GetTime() / 60;
-    int segundos = (int)GetTime() % 60;
+    // // Tempo //
+    // int minutos = (int)GetTime() / 60;
+    // int segundos = (int)GetTime() % 60;
 
-    const char *textoTempo = TextFormat( "%d %02d", minutos, segundos);
-    Vector2 posicaoTempo = (Vector2){ 90, 45 };
-    desenharNumGrande( textoTempo, posicaoTempo, direita );
+    // const char *textoTempo = TextFormat( "%d %02d", minutos, segundos);
+    // Vector2 posicaoTempo = (Vector2){ 90, 45 };
+    // desenharNumGrande( textoTempo, posicaoTempo, direita );
 
-    // Anéis //
-    const char *textoAneis = TextFormat("%d", gw->jogador->quantidadeAneis);
-    Vector2 posicaoAneis = { 154, 78 };
-    desenharNumGrande( textoAneis, posicaoAneis, esquerda );
+    // // Anéis //
+    // const char *textoAneis = TextFormat("%d", gw->jogador->quantidadeAneis);
+    // Vector2 posicaoAneis = { 154, 78 };
+    // desenharNumGrande( textoAneis, posicaoAneis, esquerda );
 
     // Vidas //
     int vidas = gw->jogador->quantidadeVidas;
@@ -160,6 +158,10 @@ static void desenharHud( GameWorld *gw ) {
     const char *textoVidas = TextFormat("%d", vidas);
     Vector2 posicaoVidas = { 106, 428 };
     desenharNumPequeno(textoVidas, posicaoVidas);
+
+    // HP //
+    int hp = gw->jogador->quantidadeHP;
+    DrawTextureRec( rm.texturaHP, (Rectangle){ 2, 205 - (48 * (hp + 1) + (3 * hp)), 152, 48 }, (Vector2){ 10, 10 }, WHITE );
 
 }
 
