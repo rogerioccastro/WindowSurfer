@@ -1,0 +1,17 @@
+I                                                          L
+C                   a                                      E
+C                  aM                                      E
+C                 aM                         a             E
+C                aM                         aba            E
+C               aM          aaa            ababa           E
+C         a    aM          aLBIa          abababa          E
+C         Ma   M    a    aaLGAFIaa       ababababa         E
+C          Ma      bM   LBBGAAAFBBI    LBBBBBBBBBBBI       E
+C           Ma    aM    KDDDDDDDDDJ    KDDDDDDDDDDDJ       E
+C            M   bM                                        E
+C               aM                                         E
+C               M                                          E
+C                                                          E
+C   0   1  M            M   0    0                          E
+FBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBG
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
