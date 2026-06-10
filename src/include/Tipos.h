@@ -26,17 +26,28 @@ typedef enum EstadoJogador {
 } EstadoJogador;
 
 /**
- * @brief Representa o estado do inimigo do tipo Motobug.
+ * @brief Representa o estado do inimigo do tipo Malware.
  */
 typedef enum EstadoInimigoMalware {
     ESTADO_INIMIGO_MALWARE_ANDANDO,
     ESTADO_INIMIGO_MALWARE_MORRENDO,
 } EstadoInimigoMalware;
 
+/**
+ * @brief Representa o estado do inimigo do tipo Spyware.
+ */
 typedef enum EstadoInimigoSpyware {
     ESTADO_INIMIGO_SPYWARE_ANDANDO,
     ESTADO_INIMIGO_SPYWARE_MORRENDO,
 } EstadoInimigoSpyware;
+
+/**
+ * @brief Representa o estado do inimigo do tipo Adware.
+ */
+typedef enum EstadoInimigoAdware {
+    ESTADO_INIMIGO_ADWARE_ANDANDO,
+    ESTADO_INIMIGO_ADWARE_MORRENDO,
+} EstadoInimigoAdware;
 
 /**
  * @brief Representa o tipo de um inimigo.
@@ -44,6 +55,7 @@ typedef enum EstadoInimigoSpyware {
 typedef enum TipoInimigo {
     TIPO_INIMIGO_MALWARE,
     TIPO_INIMIGO_SPYWARE,
+    TIPO_INIMIGO_ADWARE,
 } TipoInimigo;
 
 /**
@@ -190,7 +202,7 @@ typedef struct Jogador {
 } Jogador;
 
 /**
- * @brief Representa um inimigo do tipo Motobug.
+ * @brief Representa um inimigo do tipo Malware.
  */
 typedef struct InimigoMalware {
 
@@ -214,6 +226,9 @@ typedef struct InimigoMalware {
 
 } InimigoMalware;
 
+/**
+ * @brief Representa um inimigo do tipo Spyware.
+ */
 typedef struct InimigoSpyware {
 
     Rectangle ret;
@@ -234,6 +249,30 @@ typedef struct InimigoSpyware {
     Animacao animacaoMorrendo;
 
 } InimigoSpyware;
+
+/**
+ * @brief Representa um inimigo do tipo Adware.
+ */
+typedef struct InimigoAdware {
+
+    Rectangle ret;
+    Vector2 vel;
+    Color cor;
+
+    float velAndando;
+    float velMaxQueda;
+
+    EstadoInimigoAdware estado;
+    bool ativo;
+    bool olhandoParaDireita;
+
+    Animacao *animacoes[2];
+    int quantidadeAnimacoes;
+
+    Animacao animacaoAndando;
+    Animacao animacaoMorrendo;
+
+} InimigoAdware;
 
 /**
  * @brief Representa um inimigo.

@@ -81,7 +81,6 @@ void updateGameWorld( GameWorld *gw, float delta ) {
     entradaJogador( j, delta );
     atualizarJogador( j, gw, delta );
     atualizarCamera( gw );
-
     verificarJogadorMorto( gw );
 
 }

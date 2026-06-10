@@ -13,6 +13,7 @@
 #include "Inimigo.h"
 #include "InimigoMalware.h"
 #include "InimigoSpyware.h"
+#include "InimigoAdware.h"
 #include "Tipos.h"
 
 /**
@@ -40,6 +41,9 @@ void destruirInimigo( Inimigo *inimigo ) {
             case TIPO_INIMIGO_SPYWARE:
                 destruirInimigoSpyware( (InimigoSpyware*) inimigo->objeto );
                 break;
+            case TIPO_INIMIGO_ADWARE:
+                destruirInimigoAdware( (InimigoAdware*) inimigo->objeto );
+                break;
             default:
                 break;
         }
@@ -59,6 +63,9 @@ void atualizarInimigo( Inimigo *inimigo, GameWorld *gw, float delta ) {
         case TIPO_INIMIGO_SPYWARE:
             atualizarInimigoSpyware( (InimigoSpyware*) inimigo->objeto, gw, delta );
             break;
+        case TIPO_INIMIGO_ADWARE:
+            atualizarInimigoAdware( (InimigoAdware*) inimigo->objeto, gw, delta );
+            break;
         default:
             return;
     }
@@ -76,6 +83,9 @@ void desenharInimigo( Inimigo *inimigo ) {
             break;
         case TIPO_INIMIGO_SPYWARE:
             desenharInimigoSpyware( (InimigoSpyware*) inimigo->objeto );
+            break;
+        case TIPO_INIMIGO_ADWARE:
+            desenharInimigoAdware( (InimigoAdware*) inimigo->objeto );
             break;
         default:
             return;
@@ -107,6 +117,11 @@ void resolverColisaoInimigoObstaculosMapaX( Inimigo *inimigo, Mapa *mapa ) {
             qa = getQuadroAnimacaoAtualInimigoSpyware( spyware );
             olhandoParaDireita = &spyware->olhandoParaDireita;
             ret = &spyware->ret;
+        } else if ( inimigo->tipo == TIPO_INIMIGO_ADWARE ) {
+            InimigoAdware *adware = (InimigoAdware*) inimigo->objeto;
+            qa = getQuadroAnimacaoAtualInimigoAdware( adware );
+            olhandoParaDireita = &adware->olhandoParaDireita;
+            ret = &adware->ret;
         } else {
             el = el->proximo;
             continue;
@@ -170,6 +185,12 @@ void resolverColisaoInimigoObstaculosMapaY( Inimigo *inimigo, Mapa *mapa ) {
             olhandoParaDireita = &spyware->olhandoParaDireita;
             ret = &spyware->ret;
             vel = &spyware->vel;
+        } else if ( inimigo->tipo == TIPO_INIMIGO_ADWARE ) {
+            InimigoAdware *adware = (InimigoAdware*) inimigo->objeto;
+            qa = getQuadroAnimacaoAtualInimigoAdware( adware );
+            olhandoParaDireita = &adware->olhandoParaDireita;
+            ret = &adware->ret;
+            vel = &adware->vel;
         } else {
             el = el->proximo;
             continue;
@@ -226,6 +247,11 @@ void resolverColisaoInimigoBlocoInvisivelMapaX( Inimigo *inimigo, Mapa *mapa ) {
             qa = getQuadroAnimacaoAtualInimigoSpyware( spyware );
             olhandoParaDireita = &spyware->olhandoParaDireita;
             ret = &spyware->ret;
+        } else if ( inimigo->tipo == TIPO_INIMIGO_ADWARE ) {
+            InimigoAdware *adware = (InimigoAdware*) inimigo->objeto;
+            qa = getQuadroAnimacaoAtualInimigoAdware( adware );
+            olhandoParaDireita = &adware->olhandoParaDireita;
+            ret = &adware->ret;
         } else {
             el = el->proximo;
             continue;
@@ -289,6 +315,12 @@ void resolverColisaoInimigoBlocoInvisivelMapaY( Inimigo *inimigo, Mapa *mapa ) {
             olhandoParaDireita = &spyware->olhandoParaDireita;
             ret = &spyware->ret;
             vel = &spyware->vel;
+        } else if ( inimigo->tipo == TIPO_INIMIGO_ADWARE ) {
+            InimigoAdware *adware = (InimigoAdware*) inimigo->objeto;
+            qa = getQuadroAnimacaoAtualInimigoAdware( adware );
+            olhandoParaDireita = &adware->olhandoParaDireita;
+            ret = &adware->ret;
+            vel = &adware->vel;
         } else {
             el = el->proximo;
             continue;

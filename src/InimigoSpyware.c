@@ -1,5 +1,5 @@
 /**
- * @file Inimigo.c
+ * @file InimigoSpyware.c
  * @author @EddiePricefield & @rogerioccastro
  * @brief Implementação do Inimigo (Spyware).
  *

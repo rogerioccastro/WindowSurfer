@@ -1,7 +1,7 @@
 /**
- * @file InimigoMalware.c
+ * @file InimigoAdware.c
  * @author @EddiePricefield & @rogerioccastro
- * @brief Implementação do Inimigo (Malware).
+ * @brief Implementação do Inimigo (Adware).
  *
  * @copyright Copyright (c) 2026
  */
@@ -12,23 +12,23 @@
 
 #include "Animacao.h"
 #include "Inimigo.h"
-#include "InimigoMalware.h"
+#include "InimigoAdware.h"
 #include "Macros.h"
 #include "ResourceManager.h"
 #include "Tipos.h"
 
-static void desenharQuadroAnimacaoInimigoMalware( InimigoMalware *inimigo, QuadroAnimacao *qa, Color tonalidade );
-static void desenharQuadroAnimacaoInimigoMalwareMorrendo( InimigoMalware *inimigo, QuadroAnimacao *qa, float escala, Color tonalidade );
-static Animacao *getAnimacaoAtualInimigoMalware( InimigoMalware *inimigo );
+static void desenharQuadroAnimacaoInimigoAdware( InimigoAdware *inimigo, QuadroAnimacao *qa, Color tonalidade );
+static void desenharQuadroAnimacaoInimigoAdwareMorrendo( InimigoAdware *inimigo, QuadroAnimacao *qa, float escala, Color tonalidade );
+static Animacao *getAnimacaoAtualInimigoAdware( InimigoAdware *inimigo );
 
 static const bool MOSTRAR_RETANGULOS = false;
 
 /**
- * @brief Cria um novo Inimigo (malware).
+ * @brief Cria um novo Inimigo (adware).
  */
-InimigoMalware *criarInimigoMalware( Rectangle ret, Color cor ) {
+InimigoAdware *criarInimigoAdware( Rectangle ret, Color cor ) {
 
-    InimigoMalware *novoInimigo = (InimigoMalware*) malloc( sizeof( InimigoMalware ) );
+    InimigoAdware *novoInimigo = (InimigoAdware*) malloc( sizeof( InimigoAdware ) );
 
     novoInimigo->ret = ret;
     novoInimigo->vel = (Vector2) { 0 };
@@ -37,13 +37,13 @@ InimigoMalware *criarInimigoMalware( Rectangle ret, Color cor ) {
     novoInimigo->velAndando = 100;
     novoInimigo->velMaxQueda = 600;
 
-    novoInimigo->estado = ESTADO_INIMIGO_MALWARE_ANDANDO;
+    novoInimigo->estado = ESTADO_INIMIGO_ADWARE_ANDANDO;
     novoInimigo->ativo = true;
     novoInimigo->olhandoParaDireita = false;
 
     int quantidadeAnimacoes = 0;
 
-    novoInimigo->animacaoAndando.quantidadeQuadros = 2;
+    novoInimigo->animacaoAndando.quantidadeQuadros = 8;
     novoInimigo->animacaoAndando.quadroAtual = 0;
     novoInimigo->animacaoAndando.contadorTempoQuadro = 0.0f;
     novoInimigo->animacaoAndando.pararNoUltimoQuadro = false;
@@ -54,12 +54,12 @@ InimigoMalware *criarInimigoMalware( Rectangle ret, Color cor ) {
         novoInimigo->animacaoAndando.quadros,
         novoInimigo->animacaoAndando.quantidadeQuadros,
         250,             // duração padrão para todos os quadros
-        2, 2,            // início
+        2, 66,           // início
         36, 30,          // dimensões
         2,               // separação
         false,           // de trás para frente
         (Rectangle) {    // retângulo de colisão padrão para cada quadro
-            10, 2, 60, 58
+            7, 10, 66, 45
         }
     );
 
@@ -81,8 +81,8 @@ InimigoMalware *criarInimigoMalware( Rectangle ret, Color cor ) {
         (Rectangle) { 0 } // retângulo de colisão padrão para cada quadro
     );
 
-    novoInimigo->animacoes[ESTADO_INIMIGO_MALWARE_ANDANDO] = &novoInimigo->animacaoAndando; quantidadeAnimacoes++;
-    novoInimigo->animacoes[ESTADO_INIMIGO_MALWARE_MORRENDO] = &novoInimigo->animacaoMorrendo; quantidadeAnimacoes++;
+    novoInimigo->animacoes[ESTADO_INIMIGO_ADWARE_ANDANDO] = &novoInimigo->animacaoAndando; quantidadeAnimacoes++;
+    novoInimigo->animacoes[ESTADO_INIMIGO_ADWARE_MORRENDO] = &novoInimigo->animacaoMorrendo; quantidadeAnimacoes++;
     novoInimigo->quantidadeAnimacoes = quantidadeAnimacoes;
 
     return novoInimigo;
@@ -90,9 +90,9 @@ InimigoMalware *criarInimigoMalware( Rectangle ret, Color cor ) {
 }
 
 /**
- * @brief Destroi um inimigo (malware).
+ * @brief Destroi um inimigo (adware).
  */
-void destruirInimigoMalware( InimigoMalware *inimigo ) {
+void destruirInimigoAdware( InimigoAdware *inimigo ) {
     if ( inimigo != NULL ) {
         for ( int i = 0; i < inimigo->quantidadeAnimacoes; i++ ) {
             destruirQuadrosAnimacao( inimigo->animacoes[i] );
@@ -102,20 +102,20 @@ void destruirInimigoMalware( InimigoMalware *inimigo ) {
 }
 
 /**
- * @brief Atualiza um inimigo (malware).
+ * @brief Atualiza um inimigo (adware).
  */
-void atualizarInimigoMalware( InimigoMalware *inimigo, GameWorld *gw, float delta ) {
+void atualizarInimigoAdware( InimigoAdware *inimigo, GameWorld *gw, float delta ) {
 
     if ( inimigo->ativo ) {
 
-        if ( inimigo->estado == ESTADO_INIMIGO_MALWARE_ANDANDO ) {
+        if ( inimigo->estado == ESTADO_INIMIGO_ADWARE_ANDANDO ) {
 
-            Animacao *animacaoAtual = getAnimacaoAtualInimigoMalware( inimigo );
+            Animacao *animacaoAtual = getAnimacaoAtualInimigoAdware( inimigo );
             atualizarAnimacao( animacaoAtual, delta );
 
             Inimigo ini = {
                 .objeto = inimigo,
-                .tipo = TIPO_INIMIGO_MALWARE
+                .tipo = TIPO_INIMIGO_ADWARE
             };
 
             if ( inimigo->olhandoParaDireita ) {
@@ -129,17 +129,14 @@ void atualizarInimigoMalware( InimigoMalware *inimigo, GameWorld *gw, float delt
             resolverColisaoInimigoObstaculosMapaX( &ini, gw->mapa );
             resolverColisaoInimigoBlocoInvisivelMapaX( &ini, gw->mapa );
 
-            inimigo->vel.y += gw->gravidade * delta;
-            if ( inimigo->vel.y > inimigo->velMaxQueda ) {
-                inimigo->vel.y = inimigo->velMaxQueda;
-            }
+            inimigo->vel.y += 0;
 
             // fase Y
             inimigo->ret.y += inimigo->vel.y * delta;
             resolverColisaoInimigoObstaculosMapaY( &ini, gw->mapa );
             resolverColisaoInimigoBlocoInvisivelMapaY( &ini, gw->mapa );
 
-        } else if ( inimigo->estado == ESTADO_INIMIGO_MALWARE_MORRENDO ) {
+        } else if ( inimigo->estado == ESTADO_INIMIGO_ADWARE_MORRENDO ) {
 
             atualizarAnimacao( &inimigo->animacaoMorrendo, delta );
 
@@ -154,17 +151,17 @@ void atualizarInimigoMalware( InimigoMalware *inimigo, GameWorld *gw, float delt
 }
 
 /**
- * @brief Desenha um inimigo (malware).
+ * @brief Desenha um inimigo (adware).
  */
-void desenharInimigoMalware( InimigoMalware *inimigo ) {
+void desenharInimigoAdware( InimigoAdware *inimigo ) {
 
     if ( inimigo->ativo ) {
 
-        if ( inimigo->estado == ESTADO_INIMIGO_MALWARE_ANDANDO ) {
-            QuadroAnimacao *qa = getQuadroAnimacaoAtualInimigoMalware( inimigo );
-            desenharQuadroAnimacaoInimigoMalware( inimigo, qa, WHITE );
-        } else if ( inimigo->estado == ESTADO_INIMIGO_MALWARE_MORRENDO ) {
-            desenharQuadroAnimacaoInimigoMalwareMorrendo( inimigo, getQuadroAtualAnimacao( &inimigo->animacaoMorrendo ), 2.0f, WHITE );
+        if ( inimigo->estado == ESTADO_INIMIGO_ADWARE_ANDANDO ) {
+            QuadroAnimacao *qa = getQuadroAnimacaoAtualInimigoAdware( inimigo );
+            desenharQuadroAnimacaoInimigoAdware( inimigo, qa, WHITE );
+        } else if ( inimigo->estado == ESTADO_INIMIGO_ADWARE_MORRENDO ) {
+            desenharQuadroAnimacaoInimigoAdwareMorrendo( inimigo, getQuadroAtualAnimacao( &inimigo->animacaoMorrendo ), 2.0f, WHITE );
         }
 
         if ( MOSTRAR_RETANGULOS ) {
@@ -177,13 +174,13 @@ void desenharInimigoMalware( InimigoMalware *inimigo ) {
 }
 
 /**
- * @brief Obtém o quadro de animação atual de um inimigo (malware).
+ * @brief Obtém o quadro de animação atual de um inimigo (adware).
  */
-QuadroAnimacao *getQuadroAnimacaoAtualInimigoMalware( InimigoMalware *inimigo ) {
-    return getQuadroAtualAnimacao( getAnimacaoAtualInimigoMalware( inimigo ) );
+QuadroAnimacao *getQuadroAnimacaoAtualInimigoAdware( InimigoAdware *inimigo ) {
+    return getQuadroAtualAnimacao( getAnimacaoAtualInimigoAdware( inimigo ) );
 }
 
-static void desenharQuadroAnimacaoInimigoMalware( InimigoMalware *inimigo, QuadroAnimacao *qa, Color tonalidade ) {
+static void desenharQuadroAnimacaoInimigoAdware( InimigoAdware *inimigo, QuadroAnimacao *qa, Color tonalidade ) {
 
     if ( qa != NULL ) {
         
@@ -192,7 +189,7 @@ static void desenharQuadroAnimacaoInimigoMalware( InimigoMalware *inimigo, Quadr
             (Rectangle) {
                 qa->fonte.x,
                 qa->fonte.y,
-                inimigo->olhandoParaDireita ? -qa->fonte.width : qa->fonte.width,
+                qa->fonte.width,
                 qa->fonte.height
             },
             inimigo->ret,
@@ -213,7 +210,7 @@ static void desenharQuadroAnimacaoInimigoMalware( InimigoMalware *inimigo, Quadr
 
 }
 
-static void desenharQuadroAnimacaoInimigoMalwareMorrendo( InimigoMalware *inimigo, QuadroAnimacao *qa, float escala, Color tonalidade ) {
+static void desenharQuadroAnimacaoInimigoAdwareMorrendo( InimigoAdware *inimigo, QuadroAnimacao *qa, float escala, Color tonalidade ) {
 
     if ( qa != NULL ) {
         
@@ -235,6 +232,6 @@ static void desenharQuadroAnimacaoInimigoMalwareMorrendo( InimigoMalware *inimig
 
 }
 
-static Animacao *getAnimacaoAtualInimigoMalware( InimigoMalware *inimigo ) {
+static Animacao *getAnimacaoAtualInimigoAdware( InimigoAdware *inimigo ) {
     return inimigo->animacoes[inimigo->estado];
 }

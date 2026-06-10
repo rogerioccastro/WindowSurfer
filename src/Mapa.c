@@ -15,6 +15,7 @@
 #include "Inimigo.h"
 #include "InimigoMalware.h"
 #include "InimigoSpyware.h"
+#include "InimigoAdware.h"
 #include "Item.h"
 #include "ItemBit.h"
 #include "ItemByte.h"
@@ -283,6 +284,23 @@ Mapa *carregarMapa(const char *caminhoArquivo)
                                 .width = 80,
                                 .height = 60},
                             BLUE);
+
+                        el->objeto = inimigo;
+                        el->tipo = TIPO_ELEMENTO_MAPA_INIMIGO;
+
+                        break;
+
+                    case '2':
+
+                        inimigo = criarInimigo(TIPO_INIMIGO_ADWARE);
+
+                        inimigo->objeto = criarInimigoAdware(
+                            (Rectangle){
+                                .x = novoMapa->dimensaoPadraoElementos * colunaAtual,
+                                .y = novoMapa->dimensaoPadraoElementos * linhaAtual - 21,
+                                .width = 80,
+                                .height = 60},
+                            YELLOW);
 
                         el->objeto = inimigo;
                         el->tipo = TIPO_ELEMENTO_MAPA_INIMIGO;

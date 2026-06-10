@@ -4,15 +4,15 @@
          
          
         # 1    0 # 
-         KLLLLLLM
-         QRRRRRRS
+         KLLLLLLM      #  2   #                                 # 2                  #
+         QRRRRRRS                      #2           # 
                                                                       
                        KLM                                  KLLLM    
           KLM          QRS                          KM   KLLNOOOP   KLLLM
      ddd  NOP       KLLLLLLLM                     KMQS   NOONOOOP   NTLLLM
      KLLLMNOP       QRRRRRRRS           KLM     KMQS     NOONOOOP   QNTLLLM 
      NOOOPNOP                        KLMNOP     QS       NOOVRRRS    QNOOOP
-     QRRRSQRS                     KLMNOPQRS              NOOOOP       QRRRS
+     QRRRSQRS  2                  KLMNOPQRS              NOOOOP       QRRRS
                                   NOPQRS                 QRRRRS     
   A    0  0     aaaaaaaa      b   QRS                           A    1       1      A              c
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA                                  
