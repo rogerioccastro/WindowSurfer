@@ -47,6 +47,7 @@ typedef enum EstadoInimigoSpyware {
 typedef enum EstadoInimigoPonteiro {
     ESTADO_INIMIGO_PONTEIRO_ANDANDO,
     ESTADO_INIMIGO_PONTEIRO_MORRENDO,
+    ESTADO_INIMIGO_PONTEIRO_CLICANDO,
 } EstadoInimigoPonteiro;
 
 /**
@@ -295,15 +296,20 @@ typedef struct InimigoPonteiro {
     float velAndando;
     float velMaxQueda;
 
+    Vector2 posDestino;
+    float timer;
+
     EstadoInimigoPonteiro estado;
     bool ativo;
     bool olhandoParaDireita;
+    bool vistoPeloJogador;
 
-    Animacao *animacoes[2];
+    Animacao *animacoes[3];
     int quantidadeAnimacoes;
 
     Animacao animacaoAndando;
     Animacao animacaoMorrendo;
+    Animacao animacaoClicando;
 
 } InimigoPonteiro;
 

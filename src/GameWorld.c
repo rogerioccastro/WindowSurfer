@@ -131,8 +131,8 @@ static void desenharHud( GameWorld *gw ) {
 
     // // Score //
     // const char *textoScore = TextFormat("%d", gw->jogador->scoreTotal);
-    // Vector2 posicaoScore = (Vector2){ 200, 10 };
-    // desenharNumGrande( textoScore, posicaoScore, esquerda );
+    // Vector2 posicaoScore = (Vector2){ 700, 10 };
+    // desenharNumGrande( textoScore, posicaoScore, -1 );
 
     // // Tempo //
     // int minutos = (int)GetTime() / 60;
@@ -143,9 +143,10 @@ static void desenharHud( GameWorld *gw ) {
     // desenharNumGrande( textoTempo, posicaoTempo, direita );
 
     // // Anéis //
-    // const char *textoAneis = TextFormat("%d", gw->jogador->quantidadeBits);
+    const char *textoAneis = TextFormat("%d", gw->jogador->quantidadeBits);
     // Vector2 posicaoAneis = { 154, 78 };
-    // desenharNumGrande( textoAneis, posicaoAneis, esquerda );
+    Vector2 posicaoAneis = { 750, 15 };
+    desenharNumGrande( textoAneis, posicaoAneis, -1 );
 
     // Vidas //
     int vidas = gw->jogador->quantidadeVidas;

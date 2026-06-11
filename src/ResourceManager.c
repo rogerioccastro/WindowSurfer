@@ -120,7 +120,7 @@ void loadResourcesResourceManager( void ) {
     rm.musicaFase01 = LoadMusicStream( "resources/sons/musicas/golf-central.mp3" );
 
     SetSoundVolume( rm.somColeta, 0.8f );
-    SetSoundVolume( rm.somFrenagem, 0.8f );
+    SetSoundVolume( rm.somFrenagem, 0.0f );
     SetSoundVolume( rm.somHit, 1.2f );
     SetSoundVolume( rm.somHitInimigo, 1.3f );
     SetSoundVolume( rm.somPulo, 0.8f );

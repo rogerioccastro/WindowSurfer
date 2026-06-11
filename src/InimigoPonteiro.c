@@ -22,8 +22,6 @@ static void desenharQuadroAnimacaoInimigoPonteiroMorrendo( InimigoPonteiro *inim
 static Animacao *getAnimacaoAtualInimigoPonteiro( InimigoPonteiro *inimigo );
 
 static const bool MOSTRAR_RETANGULOS = false;
-static float timer = 0.0f;
-static Vector2 posAnteriorJogador = { 0 };
 
 /**
  * @brief Cria um novo Inimigo (ponteiro).
@@ -38,10 +36,12 @@ InimigoPonteiro *criarInimigoPonteiro( Rectangle ret, Color cor ) {
 
     novoInimigo->velAndando = 100;
     novoInimigo->velMaxQueda = 600;
+    novoInimigo->timer = 1.0f;
 
     novoInimigo->estado = ESTADO_INIMIGO_PONTEIRO_ANDANDO;
     novoInimigo->ativo = true;
     novoInimigo->olhandoParaDireita = false;
+    novoInimigo->vistoPeloJogador = false;
 
     int quantidadeAnimacoes = 0;
 
@@ -57,12 +57,30 @@ InimigoPonteiro *criarInimigoPonteiro( Rectangle ret, Color cor ) {
         novoInimigo->animacaoAndando.quantidadeQuadros,
         250,             // duração padrão para todos os quadros
         2, 98,           // início
-        35, 41,          // dimensões
+        36, 42,          // dimensões
         2,               // separação
         false,           // de trás para frente
         (Rectangle) {    // retângulo de colisão padrão para cada quadro
             0, 0, 35, 40
         }
+    );
+
+    novoInimigo->animacaoClicando.quantidadeQuadros = 4;
+    novoInimigo->animacaoClicando.quadroAtual = 0;
+    novoInimigo->animacaoClicando.contadorTempoQuadro = 0.0f;
+    novoInimigo->animacaoClicando.pararNoUltimoQuadro = false;
+    novoInimigo->animacaoClicando.executarUmaVez = true;
+    novoInimigo->animacaoClicando.finalizada = false;
+    criarQuadrosAnimacao( &novoInimigo->animacaoClicando, novoInimigo->animacaoClicando.quantidadeQuadros );
+    inicializarQuadrosAnimacao( 
+        novoInimigo->animacaoClicando.quadros,
+        novoInimigo->animacaoClicando.quantidadeQuadros,
+        100,             // duração padrão para todos os quadros
+        2, 98,           // início
+        36, 42,         // dimensões
+        2,               // separação
+        false,           // de trás para frente
+        (Rectangle) {0, 0, 35, 40} // retângulo de colisão padrão para cada quadro
     );
 
     novoInimigo->animacaoMorrendo.quantidadeQuadros = 2;
@@ -85,9 +103,10 @@ InimigoPonteiro *criarInimigoPonteiro( Rectangle ret, Color cor ) {
 
     novoInimigo->animacoes[ESTADO_INIMIGO_PONTEIRO_ANDANDO] = &novoInimigo->animacaoAndando; quantidadeAnimacoes++;
     novoInimigo->animacoes[ESTADO_INIMIGO_PONTEIRO_MORRENDO] = &novoInimigo->animacaoMorrendo; quantidadeAnimacoes++;
+    novoInimigo->animacoes[ESTADO_INIMIGO_PONTEIRO_CLICANDO] = &novoInimigo->animacaoClicando; quantidadeAnimacoes++;
     novoInimigo->quantidadeAnimacoes = quantidadeAnimacoes;
 
-    posAnteriorJogador = (Vector2) { novoInimigo->ret.x, novoInimigo->ret.y };
+    novoInimigo->posDestino = (Vector2) { novoInimigo->ret.x, novoInimigo->ret.y };
 
     return novoInimigo;
 
@@ -131,25 +150,42 @@ void atualizarInimigoPonteiro( InimigoPonteiro *inimigo, GameWorld *gw, float de
             Vector2 meioInimigo = (Vector2) { inimigo->ret.x + inimigo->ret.width / 2, inimigo->ret.y + inimigo->ret.height / 2 };
             Vector2 meioJogador = (Vector2) { gw->jogador->ret.x + gw->jogador->ret.width / 2, gw->jogador->ret.y + gw->jogador->ret.height / 2 };
 
-            timer += delta;
-
-            if (timer >= 1.0f) {
-                timer = 0.0f;
-                posAnteriorJogador = meioJogador;
+            if((meioInimigo.x >= gw->camera.target.x - (GetScreenWidth() / 2) && meioInimigo.x <= gw->camera.target.x + GetScreenWidth() / 2) && (meioInimigo.y >= gw->camera.target.y - (GetScreenHeight() / 2)&& meioInimigo.y <= gw->camera.target.y + GetScreenHeight() / 2)) {
+                inimigo->vistoPeloJogador = true;
             }
 
-            // fase X
-            if(meioInimigo.x >= gw->camera.target.x - (GetScreenWidth() / 2) && meioInimigo.x <= gw->camera.target.x + GetScreenWidth() / 2) {
-                inimigo->ret.x += delta * (posAnteriorJogador.x - meioInimigo.x);
-            }else{
-                inimigo->vel.x = 0;
-            }
+            if(inimigo->vistoPeloJogador){
 
-            // fase Y
-            if (meioInimigo.y >= gw->camera.target.y - (GetScreenHeight() / 2)&& meioInimigo.y <= gw->camera.target.y + GetScreenHeight() / 2) {
-                inimigo->ret.y += delta * (posAnteriorJogador.y - meioInimigo.y);
+                inimigo->timer += delta;
+
+                if (inimigo->timer >= 1.5f) {
+                    inimigo->timer = 0.0f;
+                    inimigo->posDestino = meioJogador;
+                    inimigo->estado = ESTADO_INIMIGO_PONTEIRO_CLICANDO;
+                }
+
+                if (inimigo->estado == !ESTADO_INIMIGO_PONTEIRO_CLICANDO){
+                    inimigo->ret.x += 0.02 * (inimigo->posDestino.x - meioInimigo.x);
+                    inimigo->ret.y += 0.02 * (inimigo->posDestino.y - meioInimigo.y);
+                }
+                
             } else{
-                inimigo->vel.y = 0;
+                inimigo->ret.x = inimigo->posDestino.x;
+                inimigo->ret.y = inimigo->posDestino.y;
+            }
+
+            // printf("Posicao %f %f\n", posAnteriorJogador.x, posAnteriorJogador.y);
+
+
+        } else if ( inimigo->estado == ESTADO_INIMIGO_PONTEIRO_CLICANDO ) {
+
+            atualizarAnimacao( &inimigo->animacaoClicando, delta );
+
+            if ( inimigo->animacaoClicando.finalizada ) {
+                inimigo->animacaoClicando.quadroAtual = 0;
+                inimigo->animacaoClicando.contadorTempoQuadro = 0.0f;
+                inimigo->animacaoClicando.finalizada = false;
+                inimigo->estado = ESTADO_INIMIGO_PONTEIRO_ANDANDO;
             }
 
         } else if ( inimigo->estado == ESTADO_INIMIGO_PONTEIRO_MORRENDO ) {
@@ -180,6 +216,8 @@ void desenharInimigoPonteiro( InimigoPonteiro *inimigo ) {
             desenharQuadroAnimacaoInimigoPonteiro( inimigo, qa, WHITE );
         } else if ( inimigo->estado == ESTADO_INIMIGO_PONTEIRO_MORRENDO ) {
             desenharQuadroAnimacaoInimigoPonteiroMorrendo( inimigo, getQuadroAtualAnimacao( &inimigo->animacaoMorrendo ), 2.0f, WHITE );
+        } else if ( inimigo->estado == ESTADO_INIMIGO_PONTEIRO_CLICANDO ) {
+            desenharQuadroAnimacaoInimigoPonteiro( inimigo, getQuadroAtualAnimacao( &inimigo->animacaoClicando ), WHITE );
         }
 
         if ( MOSTRAR_RETANGULOS ) {
