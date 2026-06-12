@@ -76,6 +76,10 @@ void updateGameWorld( GameWorld *gw, float delta ) {
         return;
     }
 
+    if ( IsKeyPressed( KEY_P ) ) {
+        printf("Posicao X: %f || Posicao Y: %f\n", gw->jogador->ret.x, gw->jogador->ret.y);
+    }
+
     Jogador *j = gw->jogador;
     atualizarMapa( gw->mapa, gw, delta );
     entradaJogador( j, delta );
@@ -275,13 +279,15 @@ static void inicializar( GameWorld *gw ) {
             return;
             break;
         case ESTADO_JOGO_MAPA1:
-            gw->mapa = carregarMapa( "resources/mapas/mapaTeste.txt" );
-            break;
-        case ESTADO_JOGO_MAPA2:
             gw->mapa = carregarMapa( "resources/mapas/mapa01.txt" );
+            gw->jogador = criarJogador( 144, 144, 96, 96 );
+            break;
+            case ESTADO_JOGO_MAPA2:
+            gw->mapa = carregarMapa( "resources/mapas/mapaTeste.txt" );
+            gw->jogador = criarJogador( GetScreenWidth() / 2 + 144, calcularAlturaMapa( gw->mapa ) - 1000, 96, 96 );
             break;
     }
-    gw->jogador = criarJogador( GetScreenWidth() / 2 + 144, calcularAlturaMapa( gw->mapa ) - 196, 96, 96 );
+    
 
     gw->camera = (Camera2D) {
         .offset = { 0 },    // deslocamento relativo da câmera em relação ao alvo

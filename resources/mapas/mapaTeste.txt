@@ -1,18 +1,18 @@
-            
-            
-                    
-         
          
         # 1    0 # 
          KLLLLLLM      #  2   #                                 # 2                  #
          QRRRRRRS                      #2           # 
-                                                                      
+
+
+
+
                        KLM                                  KLLLM    
           KLM          QRS                          KM   KLLNOOOP   KLLLM
      ddd  NOP       KLLLLLLLM         3           KMQS   NOONOOOP   NTLLLM
      KLLLMNOP       QRRRRRRRS           KLM     KMQS     NOONOOOP   QNTLLLM            3
      NOOOPNOP                        KLMNOP     QS       NOOVRRRS    QNOOOP
-     QRRRSQRS               3     KLMNOPQRS              NOOOOP       QRRRS              
-                                  NOPQRS                 QRRRRS     
-  A    0  0     aaaaaa      bbb   QRS                           A    1       1      A              c
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA                                  
+     QRRRSQRS               3     KLMNOPQRS              NOOOOP       QRRRS            
+                                  NOPQRS                 QRRRRS              
+                                  QRS                                         
+                                                              
+                                                                                

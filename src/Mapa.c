@@ -100,50 +100,41 @@ Mapa *carregarMapa(const char *caminhoArquivo)
                     int espacamento = 1;
 
                     // Seleciona a textura baseado na letra
-                    switch (c)
-                    {
-                    case 'A':
-                    case 'B':
-                    case 'C':
-                    case 'D':
-                    case 'E':
-                    case 'F':
-                    case 'G':
-                        // Usa texturaTerreno (padrão) - 48x48 com espaçamento
-                        texturaUsada = &rm.texturaTerreno;
-                        deslocamento = c - 'A';
-                        tamanhoDaTile = 48;
-                        espacamento = 1;
-                        break;
-                    
-                    case 'H':
-                    case 'I':
-                    case 'J':
-                    case 'K':
-                    case 'L':
-                    case 'M':
-                    case 'N':
-                    case 'O':
-                    case 'P':
-                    case 'Q':
-                    case 'R':
-                    case 'S':
-                    case 'T':
-                    case 'U':
-                    case 'V':
-                    case 'W':
-                    case 'X':
-                    case 'Y':
-                    case 'Z':
-                        // Usa texturaNovasTiles - 16x16 sem espaçamento
-                        texturaUsada = &rm.texturaJanela;
-                        deslocamento = c - 'H';
-                        tamanhoDaTile = 16;
-                        espacamento = 0;
-                        break;
+                    switch (c){
+                        case 'A':
+                        case 'B':
+                        case 'C':
+                        case 'D':
+                        case 'E':
+                        case 'F':
+                        case 'G':
+                        case 'H':
+                        case 'I':
+                        case 'J':
+                        case 'K':
+                        case 'L':
+                        case 'M':
+                        case 'N':
+                        case 'O':
+                        case 'P':
+                        case 'Q':
+                        case 'R':
+                        case 'S':
+                        case 'T':
+                        case 'U':
+                        case 'V':
+                        case 'W':
+                        case 'X':
+                        case 'Y':
+                        case 'Z':
+                            texturaUsada = &rm.texturaJanela;
+                            deslocamento = c - 'A';
+                            tamanhoDaTile = 16;
+                            espacamento = 0;
+                            break;
 
-                    default:
-                        break;
+                        default:
+                            break;
                     }
 
                     el->objeto = criarObstaculo(

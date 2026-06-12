@@ -1,17 +1,18 @@
-I                                                          L
-C                   a                                      E
-C                  aM                                      E
-C                 aM                         a             E
-C                aM                         aba            E
-C               aM          aaa            ababa           E
-C         a    aM          aLBIa          abababa          E
-C         Ma   M    a    aaLGAFIaa       ababababa         E
-C          Ma      bM   LBBGAAAFBBI    LBBBBBBBBBBBI       E
-C           Ma    aM    KDDDDDDDDDJ    KDDDDDDDDDDDJ       E
-C            M   bM                                        E
-C               aM                                         E
-C               M                                          E
-C                                                          E
-C   0   1  M           M   0    0                          E
-FBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBG
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+#2               #    #2         #                      3             3         #2   #          3                                                          3
+        3        0      3     0             #      2#                               #2      #                                                             #   2       #
+ aa             #aaaaaaaaaaaaaaaa#    b           #         2       1 #     aaaaa 
+bDF    #aaaa#    DEEEEEEEEEEEEEEF    DEFb                          #aaaa#   DEEEFaaa   0 0 0                                #2                  #      0   1    0    1    0
+DOPEF   DEEF     GHHHHHHHHHHHHHHI    JMEF    1     0 0 0        1   DEEF    GHMEEEEF #aaaaaaa#                                                   aa #aaaaaaaaaaaaaaaaaaaaaaaaaa#   c
+JKKKL   GHHI     JKKKKKKKKKKKKKKL     JKL   #aaaaaaaaaaaaaaaaaaaa#  JKKL    JKGHHHHI  DEEEEEF      #2          #                                aDF  DEEEEEEEEEEEEEEEEEEEEEEEEF   DEEF
+        JKKL                                 DEEEEEEEEEEEEEEEEEEF         3   JKKKKL  JKKKKKL   d                    #2             #   3      aDOL  JKKKKKKKKKKKKKKKKKKKKKKKKL   JKKL
+                                       3     JKKKKKKKKKKKKKKKKKKL                              DEF                                            aDOL
+              d                                                                                JKL    1    1    1       aba                  aDOL
+             DEF                                                                                  #aaaaaaaaaaaaaaaa#    DEF    0      0      DOL
+             JKL                                                                    3              DEEEEEEEEEEEEEEF     JKL #aaaaaaaaaaaaa#  JK
+                                                                                                   JKKKKKKKKKKKKKKL  3       DEEEEEEEEEEEF
+                                                                                                                             JKKKKKKKKKKKL
+
+
+
+

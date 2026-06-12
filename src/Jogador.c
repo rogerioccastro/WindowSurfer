@@ -421,7 +421,7 @@ void atualizarJogador( Jogador *j, GameWorld *gw, float delta ) {
         j->quantidadeMaxPulos = 2;
     }
     
-    if(j->ret.y > 900) {
+    if(j->ret.y > calcularAlturaMapa(gw->mapa)) {
         j->morreu = true;
     }
 
@@ -917,10 +917,4 @@ static void resolverColisaoJogadorInimigosMapa( Jogador *j, Mapa *mapa ) {
 
     }
 
-}
-
-static void detectarJogadorForaDoMapa( Jogador *j, Mapa *mapa ) {
-    if ( j->ret.y >= calcularAlturaMapa( mapa ) ) {
-        j->morreu = true;
-    }
 }
