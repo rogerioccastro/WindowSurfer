@@ -7,9 +7,9 @@
                                                     3    #aaa#                                DEF      JKKL
                                                         0 DEF   DEF a DEF                     GHI  b
                                             0 0       #aaaGHI   GHI a GHI                     JKL  3
-                         #1b #             #aaaa#      DEEGHIF  GHI a GHI                            aba
- a a a                    DEF              aDEEF       JKKGHIL  GHI a GHI                          b DEF
-DEEEEEEFa                 GHI            aDEGHHI          JKL   GHI a GHI                            GHI
+                                           #aaaa#      DEEGHIF  GHI a GHI                            aba
+ a a a                   #1b #             aDEEF       JKKGHIL  GHI a GHI                          b DEF
+DEEEEEEFa                 DEF            aDEGHHI          JKL   GHI a GHI                            GHI
 GMEEEEEEFa                GHI           DEGHOKKL                GHI a GHI      b                     JKL
 JGMEEEEEEFa               GHIaaaaaa     GHOKKL                  JKL a JKL    a   a    3       ada        
  JGMEEEEEEF    2   DEEEEEEOKPEEEEEF     JKKL                                                  DEF                   

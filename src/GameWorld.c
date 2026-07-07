@@ -120,6 +120,7 @@ void updateGameWorld( GameWorld *gw, float delta ) {
         cronometro += delta;
 
         if (cronometro >= 0.1 ){
+            tempBits = 0;
             estadoJogoAnterior = ESTADO_JOGO_DERROTA;
             alterarEstadoJogo(ESTADO_JOGO_TRANSICAO);
             cronometro = 0;
@@ -543,17 +544,22 @@ void updateGameWorld( GameWorld *gw, float delta ) {
                 fade = 0;
             }
             
-            if ( !IsMusicStreamPlaying( rm.musicaFase01 ) ) {
-                PlayMusicStream( rm.musicaFase01 );
-            } else {
-                UpdateMusicStream( rm.musicaFase01 );
-            }
-
-            if ( tocarMusicaBoss ){
-                if ( !IsMusicStreamPlaying( rm.musicaFase02 ) ) {
-                    PlayMusicStream( rm.musicaFase02 );
+            if (estadoJogoAtual == ESTADO_JOGO_MAPA1){
+                if ( !IsMusicStreamPlaying( rm.musicaFase01 ) ) {
+                    PlayMusicStream( rm.musicaFase01 );
                 } else {
-                    UpdateMusicStream( rm.musicaFase02 );
+                    UpdateMusicStream( rm.musicaFase01 );
+                }
+            }
+            
+
+            if (estadoJogoAtual == ESTADO_JOGO_MAPA2){
+                if ( tocarMusicaBoss ){
+                    if ( !IsMusicStreamPlaying( rm.musicaFase02 ) ) {
+                        PlayMusicStream( rm.musicaFase02 );
+                    } else {
+                        UpdateMusicStream( rm.musicaFase02 );
+                    }
                 }
             }
 
@@ -1173,6 +1179,7 @@ static void verificarJogadorMorto( GameWorld *gw ) {
         }else{
             cronometro = 0;
             tempoInicioAnimacaoMorte = GetTime();
+            tempBits = 0;
             alterarEstadoJogo(ESTADO_JOGO_DERROTA);
         }
         
